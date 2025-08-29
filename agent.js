@@ -113,12 +113,26 @@ class XenAI {
         });
     }
 
-    hideLoadingScreen() {
-        const loadingScreen = document.getElementById('loading-screen');
-        if (!loadingScreen) return;
-        loadingScreen.classList.add('hidden');
-        setTimeout(() => { loadingScreen.style.display = 'none'; }, 350);
-    }
+hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (!loadingScreen) return;
+    loadingScreen.classList.add('hidden');
+    setTimeout(() => { 
+        loadingScreen.style.display = 'none'; 
+
+        // Check for API key after loading screen is hidden
+        const apiKey = localStorage.getItem("apiKey");
+        if (!apiKey) {
+            // Alert blocks until user clicks OK
+            alert("⚠️ No API key found!\n\nPlease open Settings → API Configuration and add your key before using Xen AI.");
+            
+            // This executes AFTER user clicks OK on the alert
+            if (window.xenpai && typeof window.xenpai.toggleSettings === "function") {
+                window.xenpai.toggleSettings();
+            }
+        }
+    }, 350);
+}
 
     // ---------- UI initialization ----------
     async initializeUI() {
@@ -1152,3 +1166,4 @@ class XenAI {
 document.addEventListener('DOMContentLoaded', () => {
     window.agentFlow = new XenAI();
 });
+
