@@ -445,7 +445,7 @@ hideLoadingScreen() {
         // Demo mode fallback
         if (!apiKey) {
             // return a local mock response
-            return { choices: [{ message: { content: "Demo response: provide an API key in settings to use real models." } }] };
+            return { choices: [{ message: { content: "⚠️🚨Demo response: provide an API key in settings(top-right corner) to use real models.⚠️🚨" } }] };
         }
 
         let apiUrl, headers = { 'Content-Type': 'application/json' }, body;
@@ -1166,4 +1166,5 @@ hideLoadingScreen() {
 document.addEventListener('DOMContentLoaded', () => {
     window.agentFlow = new XenAI();
 });
+
 
